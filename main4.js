@@ -31,14 +31,20 @@ function Gameboard () {
     const markSquare = (square, player) => {
 
         //get array of non-marked cells
-        let availableSpaces = board.filter((space) => space !== "X" && space !== "O");
-        
+        //DEBUG - try to get value of one spoace on board:
+
+
+        let availableSpaces = board.filter((space) => space.getValue() !== "X" && space.getValue() !== "O");
+        console.log(availableSpaces.length);
+
         //if no cells make it thru filter, move is invalid. stop execution
         if (!availableSpaces.length) return;
         
+
         //otherwisae, I have a valid move
         board[square].markSpace(player);
         };
+    
 
         //This method prints board to the console
         const printBoard = () => {
@@ -46,17 +52,39 @@ function Gameboard () {
 
             console.log(boardWithCellValues);
             globalArrayGameBoard = boardWithCellValues;
-
-            //console.log(board.map[0] + "|" + board[1] + "|" + board[2]);
-            //console.log("-----");
-            //console.log(board[3] + "|" + board[4] + "|" + board[5]);
-            //console.log("-----");
-            //console.log(board[6] + "|" + board[7] + "|" + board[8]);        
+    
         };
+
+        //const return true if space is not marked
+        const isSpaceAvailable = (space) => {
+
+        let temp0 = board[0].getValue();
+        // let temp1 = board[1].getValue();
+
+        console.log(temp0);
+        // console.log(temp1);
+
+        let temp = board[space].getValue();
+        console.log (temp);
+
+        if (board[space].getValue() === "X" || board[space].getValue() === "O") {
+            let errorMsg = "Invalid pick, square already taken. Please try again."
+            alert(errorMsg);
+            return false;
+        };
+        
+        //loop array and check value of each cell, if X or O, then invalid move, stop execution
+        // for (i=0; i<9; i++) {
+        //     let tempSpace = board[i].getValue();
+        //     console.log(tempSpace);
+        // };
+        return true;
+        };
+
 
         //here is the interface for the rest of program
         //app to interact with the board
-        return { getBoard, markSquare, printBoard};
+        return { getBoard, markSquare, printBoard, isSpaceAvailable};
 };
 
 
@@ -119,9 +147,30 @@ function GameController(
     };
 
     const playRound = (space) => {
+
+        //is game over?
+        if (gameOver) {
+            return;
+        };
+
+        //is space already marked?
+        console.log(space);
+        let temp = (board.isSpaceAvailable(space));
+        //console.log("Temp = " + temp);
+        if (!temp) return;
+        
+        // if (board[space].getValue() === "X" || board[space].getValue() === "O") {
+        //     let errorMsg = "Invalid pick, square already taken. Please try again."
+        //     alert(errorMsg);
+        //     return;
+        // };
+
         //mark a space for current player
         console.log(`Marking ${getActivePlayer().name}'s mark onto space ${space}...`);
         board.markSquare(space, getActivePlayer().mark);
+
+        //need to handle if an error was occurred during markSquare- reset player to previous?
+
 
         //this is where we would check for a winner and handle that
         //such as win message
