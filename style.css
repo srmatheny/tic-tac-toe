@@ -1,84 +1,36 @@
 
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
-* {
-    font-size: 16px;
-    font-family: "Roboto", sans-serif;
-
-    margin: 0;
-    padding: 0;
-    line-height: 1.5em;
-}
-
-
-#gameboard {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+.board {
+    display: grid;
     height: 500px;
-    justify-content: center;
+    width: 500px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    border: 1px solid black;
+    gap: 2px;
+    padding: 2px;
+    background-color: blue;
 }
 
-.square {
-    display: flex;
-    flex-wrap: wrap;
-    float: left;
-    border: 1px solid black;
+.cell {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 25%;
-    height: 30%;
     text-align: center;
-    font-size: 80px;
+    font-size: 2rem;
+    border: 1px solid gray;
+    background: lightblue;
+    cursor: pointer;
+}
+
+.selectedP1 {
+
+}
+
+.selectedP2 {
+
 }
 
 #controls, #message {
-    text-align: center;
+    text-align: left;
     margin: 20px 0;
-}
-
-
-
-
-/* Below is stuff I used in Library project - may revisit later */
-.grid {
-    display: grid;
-    grid-template-columns: 30% 70%;
-    grid-template-rows: repeat(2, 1fr);
-    
-    height: 100vh;
-    gap: 20px;
-    background-color: white;
-    border-style: groove;
-}
-
-
-.left-side {
-    /* border: 1px solid red; */
-    background-color: lightsteelblue;
-    border-style: groove;
-}
-
-.right-side {
-    /* border: 1px solid blue; */
-    background-color: aliceblue;
-    border-style: groove;
-}
-
-
-.card-section {
-    grid-row: 2 / 3;
-    grid-column: 1 / 3;
-    /* border: 1px solid green; */
-    border-style: groove;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-    padding-left: 15px;
-    padding-top: 15px;
-    padding-right: 15px;
-    background-color: lightgray;
 }
